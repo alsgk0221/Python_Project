@@ -7,6 +7,7 @@ for i in range(100):
     else:
         print(i)
 """
+
 '''
 
 for i in range(100):
@@ -26,11 +27,38 @@ for i in range(100):
         print(i)
 '''
 
+'''
+
 for i in range(10):
 
     if i==5:
         continue
     print(i)
+'''
+
+"""
+for a in range(2,10):
+    for i in range(1,10):
+        print("{}*{}={}".format(a,i,(a*i)))
+"""
+a = int(input())
+
+flag= 0 # 0 is prime, 1 is not prime
+
+
+for i in range(2, a):
+    if a % i == 0:
+        flag=1
+        break
+
+if flag==0:
+    print("prime")
+else:
+    print("not prime")
+
+
+
+
 
 
 
