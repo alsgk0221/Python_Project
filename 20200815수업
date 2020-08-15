@@ -1,0 +1,115 @@
+
+"""
+#while 문 연습.
+a = 0
+while a < 5:
+    print("Hi", a)
+    a = a+1
+"""
+"""
+#while 문 일의 자리 삼육구.
+a=1
+while a < 11:
+    if a % 3 == 0:
+        print("*")
+        a = a+1
+    else:
+        print(a)
+        a = a+1
+"""
+'''
+#while 문 구구단.
+a=2
+i=1
+while a<10:
+    print ("{}*{}={}".format(a,i,(a*i)))
+    i=i+1
+    if i==10:
+        a=a+1
+        i=1
+'''
+'''
+#while 문 십의 자리 구구단.
+a=1
+condition=(a%10)%3==0
+condition2=(a//10)%3==0
+while a < 101:
+    if condition:
+        if condition2:
+            print("**")
+        else:
+            print("*")
+    elif condition2:
+        if condition:
+            print("**")
+        else:
+            print("*")
+    else:
+        print(a)
+        a = a+1
+'''
+'''
+#리스트 연습.
+
+a=[]
+a.append(3)
+a.append(4)
+a.append(5)
+a.append(6)
+
+for i in range(len(a)):
+    print(a[i])
+'''
+'''
+#랜덤값으로 10개의 수 뽑아 가장 큰 수 찾기.
+import random
+a=[]
+for i in range(10):
+    b = random.randrange(1,100)
+    a.append(b)
+print(a)
+i=0
+if a[i] > a[i + 1]:
+    x = a[i]
+    i=i+1
+else:
+    x = a[i + 1]
+    i=i+1
+for i in range(len(a)-1):
+    if x < a[i]:
+        x= a[i]
+print(x)
+'''
+'''
+
+#10진수를 2진수로 바꾸기.
+a=int(input())
+b=[]
+while a//2 != 1:
+    b.append(a % 2)
+    a = a//2
+b.append(a%2)
+b.append(1)
+print(b)
+
+for i in range(len(b)-1, -1, -1):
+    print(b[i])
+'''
+#리스트에 저장된 1부터 100까지의 수 중 입력된 수 찾기
+#먼저 50보다 큰지 작은지 확인하고 크면 50부터 100까지 중 작으면 1부터 50까지 중,이런식으로 찾기
+b=[]
+i=1
+x=1 #범위 내에서 가장 작은 수.
+y=100 #범위 내에서 가장 큰 수.
+z=0 #몇번 만에 찾았는
+for i in range(100):
+    b.append(i)
+print(b)
+a=int(input())
+if a>y//2:
+    x=y//2
+elif a<y//2:
+    y=y//2
+else:
+    break
+print(#몇번만에 찾았는지-변수 z)
