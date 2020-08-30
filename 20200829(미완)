@@ -1,4 +1,4 @@
-
+'''
 a = input()
 b=[]
 num1 = 0 #a에서 나오는 문자
@@ -9,18 +9,78 @@ i = 0
 x = 0
 for x in range(x, len(a),1):
   b.append(a[x])
-b[i]=num1
-count1=+1
-i=+1
-for i in range(len(a)):
-    b[i]=num2
-    count2=+1
-    if count1<count2:
-        count1=count2
-        count2=0
-    elif count1==count2:
-        count1=+1
+print(b)
+print (b[i])
+num1=b[i]
+count1=count1+1
+i=1
+for i in range(1,len(b),1):
+    num2=b[i]
+    if num1==num2:
+        count1=count1+1
+    else:
+        count2=count2+1
+        print("num1",num1)
+        print("num2",num2)
+        print("count1",count1)
+        print("count2'",count2)
+        if count1<count2:
+            count1=count2
+            count2=0
+            num2=0
+            print("num1",num1)
+            print("num2",num2)
+            print("count1",count1)
+            print("count2'",count2)
+        elif count1==count2:
+            count1=count1+1
+            count2=0
+            num2=0
+            print("num1",num1)
+            print("num2",num2)
+            print("count1",count1)
+            print("count2'",count2)
+        else:
+            count2=0
+            num2=0
+            print("num1",num1)
+            print("num2",num2)
+            print("count1",count1)
+            print("count2'",count2)
 if count1>=count2:
   print(count1)
 else:
   print(count2)
+'''
+a = input()
+b=[]
+num1 = 0
+num2 = 0
+count1 = 0
+count2 = 0
+i = 0
+c = 0
+for x in range(c, len(a),1):
+  b.append(a[c])
+num1=b[i]
+i = 1
+for i in range(len(b) - 1):
+    num2 = b[i]
+    c = 1
+    while num2 == b[i + c]:
+        count2 = count2 + 1
+        c = c + 1
+    if count1 >= count2:
+        count2 = 0
+    else:
+        count1 = count2
+        count2 = 0
+if count1 >= count2:
+    print(count1)
+else:
+    print(count2)
+count1=1
+
+
+
+
