@@ -1,0 +1,160 @@
+'''
+a = input()
+b=[]
+num1 = 0 #a에서 나오는 문자
+num2 = 0 #a에서 나오는 문자2
+count1 = 0 #num1이 나온 횟수
+count2 = 0 #num2가 나온 횟수
+i = 0
+x = 0
+for x in range(x, len(a),1):
+  b.append(a[x])
+print(b)
+print (b[i])
+num1=b[i]
+count1=count1+1
+i=1
+for i in range(1,len(b),1):
+    num2=b[i]
+    if num1==num2:
+        count1=count1+1
+    else:
+        count2=count2+1
+        print("num1",num1)
+        print("num2",num2)
+        print("count1",count1)
+        print("count2'",count2)
+        if count1<count2:
+            count1=count2
+            count2=0
+            num2=0
+            print("num1",num1)
+            print("num2",num2)
+            print("count1",count1)
+            print("count2'",count2)
+        elif count1==count2:
+            count1=count1+1
+            count2=0
+            num2=0
+            print("num1",num1)
+            print("num2",num2)
+            print("count1",count1)
+            print("count2'",count2)
+        else:
+            count2=0
+            num2=0
+            print("num1",num1)
+            print("num2",num2)
+            print("count1",count1)
+            print("count2'",count2)
+if count1>=count2:
+  print(count1)
+else:
+  print(count2)
+'''
+'''
+a = input()
+b=[]
+num1 = 0
+num2 = 0
+count1 = 0
+count2 = 0
+i = 0
+c = 0
+for x in range(c, len(a),1):
+  b.append(a[c])
+num1=b[i]
+i = 1
+for i in range(len(b) - 1):
+    num2 = b[i]
+    c = 1
+    while num2 == b[i + c]:
+        count2 = count2 + 1
+        c = c + 1
+    if count1 >= count2:
+        count2 = 0
+    else:
+        count1 = count2
+        count2 = 0
+if count1 >= count2:
+    print(count1)
+else:
+    print(count2)
+count1=1
+'''
+'''
+
+def test_hi(b,c):
+
+    a=b+c
+
+    return a
+print(test_hi(3,4))
+'''
+'''
+#입력받은 값으로 구구단.
+
+def test(a):
+
+    for i in range(1,10):
+        print("{}x{}={}".format(a, i, a*i))
+
+b=int(input())
+test(b)
+'''
+"""
+#입력받은 숫자의 배수만 *로 나타내기
+
+def MH_test(a):
+
+    for i in range(1,100):
+        if i%a==0:
+            print("*")
+        else:
+            print(i)
+
+a=int(input())
+MH_test(a)
+"""
+'''
+#두 수 입력받아서 각각의 자리에서 배수 체크하기.
+
+def A_test(a,b):
+
+    for i in range(1,99):
+        condition1 = (i // 10) % a == 0
+        condition2 = (i % 10) % b == 0
+        if i>9:
+            if condition1 and condition2:
+                print("**")
+            elif condition1 or condition2:
+                print("*")
+            else:
+                print(i)
+        else:
+            if i%b==0:
+                print("*")
+            else:
+                print(i)
+
+a=int(input())
+b=int(input())
+A_test(a,b)
+'''
+#입력된 문자 a에서 또 다른 입력된 문자 b가 몇번 들어가는지 출력하기.
+
+def check_test(a, b):
+
+    count=0
+    for i in range(len(a)):
+        print(a[i])
+    for i in range(len(a)):
+        if a[i] == b:
+            count = count+1
+    print(count)
+    #for문 안에 for문 형식 사용
+    
+
+a = input()
+b = input()
+check_test(a, b)
