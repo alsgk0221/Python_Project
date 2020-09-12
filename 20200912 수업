@@ -1,0 +1,167 @@
+"""
+#입력된 문자 a에서 또 다른 입력된 문자 b가 몇번 들어가는지 출력하기(미완).
+
+def check_test(a, b):
+
+    count=0
+    for i in range(len(a)):
+        print(a[i])
+    for i in range(len(a)):
+        if a[i] == b:
+            count = count+1
+    print(count)
+    #for문 안에 for문 형식 사용
+
+
+a = input()
+b = input()
+check_test(a, b)
+"""
+'''
+#두 정수 입력 받아서 서로소 인지 아닌지.
+
+x = int(input("숫자 x 입력:"))
+y = int(input("숫자 y 입력:"))
+a = 0
+flag=0
+if x>y:
+    a=y
+else:
+    a=x
+for i in range(2,a+1):
+    if x%i==0 and y%i==0:
+        flag=1
+        break
+if flag==1:
+    print("서로소가 아니다.")
+else:
+    print("서로소이다.")
+'''
+"""
+#위 프로젝트 함수 이용 버전.
+
+
+def test(x,y):
+
+    a = 0
+    flag = 0
+    if x > y:
+        a = y
+    else:
+        a = x
+    for i in range(2, a + 1):
+        if x % i == 0 and y % i == 0:
+            flag = 1
+            break
+    if flag == 1:
+        print("서로소가 아니다.")
+    else:
+        print("서로소이다.")
+
+x = int(input("숫자 x 입력:"))
+y = int(input("숫자 y 입력:"))
+test(x, y)
+"""
+'''
+#주민번호 입력하면 나이와 성별을 프린트하기(미완).
+
+a = str(input("주민등록번호:"))
+b=[]
+age=0
+gender=0
+
+for i in range(0,14):
+    b.append(a[i])
+if int(b[0])*10+int(b[1])>20:
+    age=121-(b[0]*10+b[1])
+else:
+    age=21-(int(b[0])*10+int(b[1]))
+if b[7]=='1' or b[7]=='3':
+    gender==1
+else:
+    gender==2
+print("나이:", age)
+print("성별:", gender)
+
+#선생님 참고버전.
+def people(a):
+    if(len(a)!=14):
+        print("잘못 입력하셨습니다.")
+        exit()
+        a="941021-1111111"#=>a[0]~a[13]
+    else:
+        if a[7] == '1' or a[7] == '3':
+            gen = 'M'
+        else:
+            gen = 'W'
+        if a[7] == '1' or a[7] == '2':
+            age = 2020-(1900 + 10 * int(a[0]) + int(a[1]))+1
+        else:
+            age = 2020 - (2000 + 10 * int(a[0]) + int(a[1]))+1
+    print("나이는 {}살 성별은 {}입니다.".format(age,gen))
+a = input()
+people(a)
+'''
+'''
+#입력된 수의 팩토리얼 출력하기.
+def fact1(a):
+    tot = 1
+    for i in range(1, a+1):
+        tot *= i#tot = tot * i
+    print("{}! = {}".format(a,tot))
+
+a = int(input())
+fact1(a)
+def fact2(a):
+    if a <= 0:
+        return 1
+    else:
+        return a * fact2(a-1) #재귀함수
+
+a = int(input("숫자를 입력하시오:"))
+print("{}! = {}".format(a,fact2(a)))
+'''
+class Man:
+	# 클래스 변수
+	cnt = 0
+
+	def __init__(self, name):  # __init__메소드를 생성자라고도 한다.
+		""" 데이터 초기화 하기 """
+		self.name = name  # self.name에서 name은 객체변수를 의미한다.
+		print("({}이(가) 만들어지는 중.....)".format(self.name))
+
+		Man.cnt += 1  # 클래수 변수 접근하기 : 클래스명.클래스변수명
+
+	def die(self):
+		"""Man 객체가 죽었을 때"""
+		print("{} 는 죽었습니다!!!".format(self.name))
+
+		Man.cnt -= 1
+
+		if Man.cnt == 0:
+			print("{} 는 최후의 생존자 였다".format(self.name))
+		else:
+			print("아직 {:d}명의 생존자가 남아있다".format(Man.cnt))
+
+	def say(self):
+		print("생성완료!!!!   안녕하세요!!! 내이름은 {} 입니다".format(self.name))
+
+	@classmethod  # 장식자(decorator) : how_many = classmethod(how_many)의 다른 표현
+	def how_many(how):
+		""" 현재의 객체 수량을 체크한다"""
+		print("현재 {} 명이 남았습니다".format(Man.cnt))
+
+
+# how_many = classmethod(how_many)
+
+
+gameActor1 = Man("맨1")
+gameActor1.say()
+
+gameActor2 = Man("맨2")
+gameActor2.say()
+
+gameActor3 = Man("맨3")
+
+print("------------------------------")
+gameActor2.die()
