@@ -1,0 +1,80 @@
+'''
+# class 사용해서 게임 만들기.
+import random
+
+class makeCharacter:
+
+    def __init__(self, id):
+        self.name = id
+        self.hp = random.randrange(1, 20)
+        self.mp = random.randrange(1, 40)
+        self.q = random.randrange(1, 4)
+
+    def attack(self):
+        return self.q
+
+    def attacked(self, atk):
+        self.hp = self.hp-atk
+
+    def skill(self):
+            self.hp = self.hp + 4
+            self.mp = self.mp - 10
+
+id = input("Enter character name : ")
+
+ogar = makeCharacter(id)
+
+id = input("Enter character name : ")
+
+mc = makeCharacter(id)
+
+turn=1
+print("ogar의 q : ", ogar.attack())
+print("mc의 q : ", mc.attack())
+print("ogar의  mp : ", ogar.mp)
+print("mc의 mp : ", mc.mp)
+while ogar.hp > 0 and mc.hp > 0:
+
+    if turn == 1:  # (ogar turn)
+
+        if ogar.mp > 9:
+            skill = int(input("ogar의 체력을 회복 하시겠습니까? 1)네 2) 아니요 : "))
+            if skill == 1:
+                ogar.skill()
+            else:
+                print("mc의 처음 hp : ", mc.hp)
+                mc.attacked(ogar.attack())
+                print("mc의 후 hp : ", mc.hp)
+        else:
+            print("mc의 처음 hp : ", mc.hp)
+            mc.attacked(ogar.attack())
+            print("mc의 후 hp : ", mc.hp)
+        turn = 0
+
+    else:  # (mc turn)
+
+        if mc.mp > 9:
+            skill = int(input("mc의 체력을 회복 하시겠습니까? 1)네 2) 아니요 : "))
+            if skill == 1:
+                mc.skill()
+            else:
+                print("ogar의 처음 hp : ", ogar.hp)
+                ogar.attacked(mc.attack())
+                print("ogar의 후 hp : ", ogar.hp)
+        else:
+            print("ogar의 처음 hp : ", ogar.hp)
+            ogar.attacked(mc.attack())
+            print("ogar의 후 hp : ", ogar.hp)
+        turn = 1
+
+if ogar.hp <=0:
+    print("mc wins")
+else:
+    print("ogar wins")
+'''
+#상대경로 파악하기
+f = open("/home/at02/바탕화면/test.txt", 'r')
+
+temp = f.readlines()
+
+print(temp)
