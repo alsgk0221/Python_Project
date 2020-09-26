@@ -1,0 +1,91 @@
+'''
+#3개 함수 연달아 써서 더하기, 빼기, 곱하기 하기.
+def test_1(a, b):
+
+    c = a+b
+    print(a, "+", b, "=", c)
+    return c
+
+
+def test_2(d, e):
+
+    f = d-e
+    print(d, "-", e, "=", f)
+    return f
+
+
+def test_3(c, f):
+
+    x = c*f
+    print(c, "*", f, "=", x)
+    return x
+
+
+a = int(input())
+b = int(input())
+test_1(a, b)
+c = test_1(a, b)
+d = int(input())
+e = int(input())
+test_2(d, e)
+f = test_2(d, e)
+test_3(c, f)
+'''
+'''
+#a와 b의 값 바꾸기.
+
+a = 4
+b = 90
+c = b
+print("a =", a)
+print("b =", b)
+print("c =", c)
+print(" ")
+
+b = a
+a = c
+print("a =", a)
+print("b =", b)
+print("c =", c)
+'''
+'''
+#로그인 하기.
+f = open('test.txt', 'r')
+lines = f.readlines()
+
+id = input("id : ")
+pwd = input("pwd : ")
+
+
+flag = 0
+for line in lines:
+    server_id = line.split(',')[0]
+    server_pwd = line.split(',')[1].split('\n')[0]
+
+    if id == server_id and pwd == server_pwd:
+        print("login")
+        flag = 1
+        break
+
+if flag == 0:
+    print("not login")
+'''
+#회원가입 하기.
+
+f = open("text.txt", 'a')
+fr = open("text.txt", 'r')
+
+lines = fr.readlines()
+new_id = input("새로 등록할 아이디를 입력하세요 : ")
+for line in lines:
+    server_id = line.split(',')[0]
+    server_pwd = line.split(',')[1].split('\n')[0]
+for i in range(len(lines)):
+    if lines[i] == new_id:
+        print("이미 있는 아이디이므로 등록 할 수 없습니다.")
+        break
+new_pwd = input("새로 등록할 아이디의 비밀번호 입력하세요 : ")
+
+f.write(new_id + "," + new_pwd + '\n')
+print("회원가입을 완료 했습니다.")
+
