@@ -1,0 +1,78 @@
+"""
+#stack-over,under flow.
+stack = list
+stack = [1, 2, 3, 4]
+print(stack)
+max_v = 5
+a = 0
+
+
+def push(stack):
+
+    a = int(input("push: "))
+    if len(stack) >= max_v:
+        print("overflow")
+    else:
+        stack.append(a)
+        print(stack)
+
+    return stack
+
+
+def pop(stack):
+
+    if len(stack) == 0:
+        print("underflow")
+    else:
+        print("pop: ", stack[len(stack)-1])
+        del stack[len(stack)-1]
+        print(stack)
+
+    return stack
+
+
+while True:
+
+    check = int(input("1 is push, 2 is pop, 3 is exit: "))
+
+    if check == 1:
+        stack = push(stack)
+    elif check == 2:
+        stack = pop(stack)
+    elif check == 3:
+        break
+
+"""
+# 버블 정렬.
+
+
+def check():
+
+    flag = 0
+    for i in range(len(a) - 1):
+        if a[i] <= a[i + 1]:
+            continue
+        else:
+            flag = 1
+            break
+    return flag
+
+
+a = [6, 7, 8, 1, 2]
+flag = check()
+
+while not flag == 0:
+    for i in range(len(a)-1):
+       if a[i] > a[i+1]:
+            a[i], a[i+1] = a[i+1], a[i]
+            print(a)
+    flag = check()
+
+"""
+#ver2
+for i in range(len(a)):
+    for i in range(len(a) - 1):
+        if a[i] > a[i + 1]:
+            a[i], a[i + 1] = a[i + 1], a[i]
+            print(a)
+"""
