@@ -1,0 +1,133 @@
+"""
+#이미지 삽입 후 실행.
+import pygame
+
+pygame.init()
+
+
+def car(carImg, x, y):
+
+    gameDisplay.blit(carImg, (x, y))
+
+
+display_width = 2000
+display_height = 800
+
+gameDisplay = pygame.display.set_mode((display_width, display_height))
+pygame.display.set_caption('race')
+
+black = (0, 0, 0)
+white = (255, 255, 255)
+
+clock = pygame.time.Clock()
+crashed = False
+carImg = pygame.image.load('./flower.png')
+
+x = (display_width * 0.45)
+y = (display_height * 0.8)
+x_change = 0
+y_change = 0
+
+while not crashed:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            crashed = True
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                x_change = -5
+            elif event.key == pygame.K_RIGHT:
+                x_change = 5
+            elif event.key == pygame.K_UP:
+                y_change = -5
+            elif event.key == pygame.K_DOWN:
+                y_change = 5
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                x_change = 0
+                y_change = 0
+    x += x_change
+    y += y_change
+
+    gameDisplay.fill((211, 160, 211))
+    car(carImg, x, y)
+    pygame.display.update()
+    clock.tick(60)
+"""
+"""
+#queue.
+max_v = 5
+queue = []
+
+def enqueue(queue, data):
+
+    if len(queue) >= max_v:
+        print("overflow")
+        print(queue)
+    else:
+        queue.append(data)
+        print(queue)
+    return queue
+
+
+def dequeue(queue):
+
+    if len(queue) == 0:
+        print("underflow")
+        print(queue)
+    else:
+        del(queue[0])
+        print(queue)
+    return queue
+
+
+while True:
+    a = int(input("1 is enqueue 2 is dequeue 3 is out: "))
+    if a == 1:
+        data = int(input("Enter the data: "))
+        queue = enqueue(queue, data)
+    elif a == 2:
+        queue = dequeue(queue)
+    elif a == 3:
+        print("out")
+        break
+"""
+"""
+#버블정렬 다시.
+
+a = [4, 7, 8, 8, 1]
+
+while not a[0] <= a[1] <= a[2] <= a[3] <= a[4]:
+    for i in range(len(a)-1):
+        if a[i] > a[i+1]:
+            a[i], a[i+1] = a[i+1], a[i]
+        print(a)
+"""
+
+#select 정렬.
+
+a = [5, 1, 4, 2]
+b = []
+small_num = 0
+
+
+def select_sm(a):
+
+    for i in range(len(a)-1):
+        if a[i] >= a[i+1]:
+            small_num = a[i+1]
+        else:
+            small_num = a[i]
+
+    a[0] = small_num
+    print(a)
+    return small_num
+
+
+for i in range(len(a)):
+
+    select_sm(a)
+
+print("a: ", a)
+print(small_num)
