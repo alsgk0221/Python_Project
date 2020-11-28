@@ -1,0 +1,88 @@
+"""
+import random
+
+
+def divide():
+
+    a = []
+    c = []
+
+    for i in range(100):
+        b = random.randrange(1, 100)
+        a.append(b)
+
+    for e in range(100):
+
+        z = 2
+        flag = 0
+        while a[e] > z:
+            if a[e] % z == 0:
+                flag = 1
+            z = z + 1
+
+        if flag == 0 and a[e] > 1:
+            c.append(a[e])
+
+    return a, c
+
+
+a, c = divide()
+
+
+print("a:", a)
+print("c:", c)
+"""
+
+import random
+
+def see_play_hand(points, stand, stand_print):
+
+    total_points = 0
+    print(stand_print + " hand: [", end=" ")
+    for i in range(len(points)):
+        if i == len(points - 1):
+            print("'" + stand[i] + "'", end=" ")
+        else:
+            print("'" + stand[i] + "'" + ",", end=' ')
+
+        total_points += points[i]
+    print("] is worth {}".format(total_points))
+
+cards = ['10 of Hearts', '9 of Hearts', '8 of Hearts', '7 of Hearts', '6 of Hearts',
+              '5 of Hearts', '4 of Hearts', '3 of Hearts', '2 of Hearts', 'Ace of Hearts',
+              'King of Hearts', 'Queen of Hearts', 'Jack of Hearts', '10 of Diamonds',
+              '9 of Diamonds', '8 of Diamonds', '7 of Diamonds', '6 of Diamonds', '5 of Diamonds',
+              '4 of Diamonds', '3 of Diamonds', '2 of Diamonds', 'Ace of Diamonds', 'King of Diamonds',
+              'Queen of Diamonds', 'Jack of Diamonds', '10 of Clubs', '9 of Clubs', '8 of Clubs',
+              '7 of Clubs', '6 of Clubs', '5 of Clubs', '4 of Clubs', '3 of Clubs', '2 of Clubs',
+              'Ace of Clubs', 'King of Clubs', 'Queen of Clubs', 'Jack of Clubs', '10 of Spades',
+              '9 of Spades', '8 of Spades', '7 of Spades', '6 of Spades', '5 of Spades',
+              '4 of Spades', '3 of Spades', '2 of Spades', 'Ace of Spades', 'King of Spades',
+              'Queen of Spades', 'Jack of Spades']
+values = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 10, 10, 10, 9, 8, 7,
+              6, 5, 4, 3, 2, 1, 10, 10, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
+              10, 10, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 10, 10]
+
+total_value = 0
+new_card = 0
+first_card = 0
+second_card = 0
+select_list = []
+
+first_card = random.randrange(0, 51)
+select_list.append(first_card)
+del cards[first_card]
+del values[first_card]
+second_card =  random.randrange(0,50)
+select_list.append(second_card)
+del cards[second_card]
+del values[second_card]
+
+total_value = values[first_card] + values[second_card]
+print("Player hand: [", cards[first_card], ",", cards[second_card], "] is worth ", total_value)
+see_play_hand(total_value,              )
+
+a = input("(h)it or (s)tand? : ")
+if a == "h":
+    new_card = random.randrange(0, len(cards))
+    print("Player hand:"
