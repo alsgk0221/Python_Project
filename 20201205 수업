@@ -1,0 +1,109 @@
+import random
+
+
+import random
+
+def see_play_hand(points, stand, stand_print):
+
+    total_points = 0
+    print(stand_print + " hand: [", end=" ")
+    for i in range(len(points)):
+        print(stand[i])
+        if i == len(points):
+            print("'" + stand[i] + "'", end=" ")
+        else:
+            print("'" + stand[i] + "'" + ",", end=' ')
+
+        total_points += points[i]
+    print("] is worth {}".format(total_points))
+
+    return total_points
+
+
+def check_h_game(number):
+    if number == 21:
+        return 0
+    elif number < 21:
+        return 1
+    else:
+        return 2
+
+
+def game_init():
+
+    cards = ['10 of Hearts', '9 of Hearts', '8 of Hearts', '7 of Hearts', '6 of Hearts',
+             '5 of Hearts', '4 of Hearts', '3 of Hearts', '2 of Hearts', 'Ace of Hearts',
+             'King of Hearts', 'Queen of Hearts', 'Jack of Hearts', '10 of Diamonds',
+             '9 of Diamonds', '8 of Diamonds', '7 of Diamonds', '6 of Diamonds', '5 of Diamonds',
+             '4 of Diamonds', '3 of Diamonds', '2 of Diamonds', 'Ace of Diamonds', 'King of Diamonds',
+             'Queen of Diamonds', 'Jack of Diamonds', '10 of Clubs', '9 of Clubs', '8 of Clubs',
+             '7 of Clubs', '6 of Clubs', '5 of Clubs', '4 of Clubs', '3 of Clubs', '2 of Clubs',
+             'Ace of Clubs', 'King of Clubs', 'Queen of Clubs', 'Jack of Clubs', '10 of Spades',
+             '9 of Spades', '8 of Spades', '7 of Spades', '6 of Spades', '5 of Spades',
+             '4 of Spades', '3 of Spades', '2 of Spades', 'Ace of Spades', 'King of Spades',
+             'Queen of Spades', 'Jack of Spades']
+    values = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 10, 10, 10, 9, 8, 7,
+              6, 5, 4, 3, 2, 1, 10, 10, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
+              10, 10, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 10, 10]
+
+    person = []
+    person_points = []
+    computer = []
+    computer_points = []
+
+    for i in range(2):
+        random_num = random.randrange(len(values))
+        person_points.append(values[random_num])
+        person.append(cards[random_num])
+
+        del cards[random_num]
+        del values[random_num]
+
+    return person, person_points, computer, computer_points, cards, values
+
+
+person, person_points, computer, computer_points, cards, values = game_init()
+reset = True
+not_end = True
+
+while not_end:
+
+    if reset:
+        print(">>> ===== RESTART ===== >>>")
+        print(">>>")
+        reset = False
+
+    computer_total_points = 0
+
+    person_total_points = see_play_hand(person_points, person, 'Player')
+
+    h_or_s = input("(h)it or (s)tand?")
+
+    if h_or_s == "h":
+
+        random_num = random.randrange(len(values))
+        person_points.append(values[random_num])
+        person.append(cards[random_num])
+        print("You drew {}".format(cards[random_num]))
+        flag = check_h_game(person_total_points + values[random_num])
+
+        if flag==0:
+            see_play_hand(person_points, person, "Player")
+            print("Player wins!")
+            print("Player got 21! blackjack!")
+            person, person_points, computer, computer_points, cards, values = game_init()
+            reset = True
+
+        elif flag == 2:
+            see_play_hand(person_points, person, "Player")
+            print("Bust!")
+            print("Computer wins!")
+            person, person_points, computer, computer_points, cards, values = game_init()
+            reset + True
+
+   if h_or_s == "s":
+
+       a = random.randrange(0, len(cards)-1 )
+       b = random.randrange(0, len(cards)-2 )
+
+       see_play_hand(computer_points, computer, "Computer")
