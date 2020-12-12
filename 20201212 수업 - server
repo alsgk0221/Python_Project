@@ -1,0 +1,24 @@
+from socket import *
+serverSock = socket(AF_INET, SOCK_STREAM)
+serverSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+serverSock.bind(('', 8080))
+while True:
+    BUF_SIZE = 2048
+    serverSock.listen(3)
+    conn, addr = serverSock.accept()
+    data = conn.recv(BUF_SIZE)
+    msg = data.decode()
+
+    a = int(data)
+    money = [500, 100, 50, 10]
+    count = 0
+
+    for i in range(4):
+        while a >= money[i]:
+            a = a - money[i]
+            count += 1
+
+    conn.send(str(count).encode())
+    if msg == 'bye':
+        conn.close()
+        break
