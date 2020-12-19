@@ -1,0 +1,57 @@
+f = open("text.txt", 'r', encoding='UTF8')
+lines = f.readlines()
+# print(lines)
+
+count = []  # 단어 사용 횟수
+new_words = []
+word_count = []
+total_words = []
+
+
+def line_split():
+
+    for i in range(len(lines)):
+        line = lines[i]
+        words = line.split(' ')
+        total_words.append(words)
+    return total_words
+
+
+def same_words():
+
+    for k in range(len(total_words)):
+        line_word = total_words[k]
+        for i in range(len(line_word)):
+            word = line_word[i]
+            word = word.split('＼n')[0]
+            count = -1
+            for j in range(len(new_words)):
+                if new_words[j] == word:
+                    count = j
+                    break
+            if count == -1:
+                new_words.append(word)
+                word_count.append(1)
+            else:
+                word_count[count] = word_count[count] + 1
+    return new_words, word_count
+
+
+total_words = line_split()
+new_words, word_count = same_words()
+
+
+print(new_words)
+print(word_count)
+
+i = 0
+j = 0
+
+for i in range(len(word_count)):
+    for j in range(len(word_count)-1):
+        if word_count[j] < word_count[j+1]:
+            word_count[j], word_count[j+1] = word_count[j+1], word_count[j]
+            new_words[j], new_words[j+1] = new_words[j+1], new_words[j]
+
+print(word_count[0:3])
+print(new_words[0:3])
