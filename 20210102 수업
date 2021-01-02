@@ -1,0 +1,66 @@
+import time
+
+like_list = []
+hate_list = []
+letter_list = []
+time_list = []
+
+
+def bubble_sort_by_time():
+
+    for i in range(len(letter_list)):
+        c = 0
+        for j in range(len(letter_list) - 1, 0, -1):
+            if time_list[c] > time_list[c + 1]:
+                time_list[c], time_list[c + 1] = time_list[c + 1], time_list[c]
+                letter_list[c], letter_list[c + 1] = letter_list[c + 1], letter_list[c]
+                like_list[c], like_list[c + 1] = like_list[c + 1], like_list[c]
+                hate_list[c], hate_list[c + 1] = hate_list[c + 1], hate_list[c]
+            c += 1
+
+    print(letter_list)
+    return time_list, letter_list, like_list, hate_list
+
+
+ID = input("ID : ")
+password = input("Password : ")
+
+f = open(ID-list, 'w')
+lines = f.readlines()
+# 내용추가하기
+
+while True:
+
+    temp = input("(w)rite (r)ead (l)ike (h)ate : ")
+
+    if temp == "w":
+        writing = input("Write : ")
+        letter_list.append(writing)
+        like_list.append(0)
+        hate_list.append(0)
+        time_list.append(time.time())
+        print(time_list)
+
+    elif temp == "r":
+        if len(letter_list) == 0:
+            print("No writing")
+        else:
+            time_list, letter_list, like_list, hate_list = bubble_sort_by_time()
+
+    elif temp == "l":
+        if len(letter_list) == 0:
+            print("No writing")
+        else:
+            select_letter = int(input("Which line? : "))
+            like_list[select_letter-1] = like_list[select_letter-1] + 1
+            time_list[select_letter-1] = time.time()
+            print(time_list)
+
+    elif temp == "h":
+        if len(letter_list) == 0:
+            print("No writing")
+        else:
+            select_letter = int(input("Which line? : "))
+            hate_list[select_letter-1] = hate_list[select_letter-1] + 1
+            time_list[select_letter-1] = time.time()
+            print(time_list)
