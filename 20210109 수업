@@ -1,0 +1,85 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torchvision.utils as utils
+import torchvision.datasets as dsets
+import torchvision.transforms as transforms
+
+is_cuda = torch.cuda.is_available()
+device = torch.device('cuda' if is_cuda else 'cpu')
+
+device
+
+#MNIST dataset
+train_data = dsets.MNIST(root='data/', train=True, transform=transforms.ToTensor(), download=True)
+test_data = dsets.MNIST(root='data/', train=False, transform=transforms.ToTensor(), download=True)
+
+print('number of training data: ', len(train_data))
+print('number of test data: ', len(test_data))
+
+image, label = train_data[0]
+
+print('Image')
+print('=========================================')
+print('shape of this image\t:', image.shape)
+print('7\'th row of this image\t:', image[0][6])
+
+print('Label')
+print('=========================================')
+print('label: ', label)
+
+from matplotlib import pyplot as plt
+plt.imshow(image.squeeze().numpy(), cmap='gray')
+plt.title('%i' % label)
+plt.show()
+
+mlp = nn.Sequential(
+     nn.Linear(28*28, 256),
+     nn.LeakyReLU(0.1),
+     nn.Linear(256,10),
+     nn.Softmax(dim=-1)
+
+).to(device)
+
+batch_size = 200
+
+train_data_loader = torch.utils.data.DataLoader(train_data, batch_size, shuffle=True)
+test_data_loader = torch.utils.datimport time 
+
+def run_epoch (model, train_data, test_data, optimizer, criterion):
+
+  start_time = time.time()
+  for img_i, label_i in train_data:
+      img_i, label_i = img_i.to(device), label_i
+
+
+      optimizer.zero_grad()
+
+      # Forward
+      label_predicted = mlp.forward(img_i.view(-1, 28*28))
+      # Loss computation
+      loss = criterion(torch.log(label_predicted), label_i)
+      # Backward
+      loss.backward()
+      # Optimize for img_i
+      optimizer.step()
+
+  total_test_loss = 0
+  for img_i, label_i in test_data:
+
+      img_i, label_i = img_i.to(device), label_i
+
+      with torch.autograd.no_grad():
+          label_predicted = mlp.forward(img_i.view(-1, 28*28))
+          total_test_loss += criterion(torch.log(label_predicted), label_i.view(-1)).item()
+  end_time = time.time()
+  return total_test_loss, (end_time - start_time)
+
+optimizer = optim.Adam(mlp.parameters(), lr=0.0001)
+criterion = nn.NLLLoss()
+
+for epoch in range(10):
+    test_loss, response = run_epoch (mlp, train_data_loader, test_data_loader, optimizer, criterion)
+    print('epoch ', epoch, ': ')
+    print('\ttest_loss: ', test_loss)
+    print('\tresponse(s): ', response)
