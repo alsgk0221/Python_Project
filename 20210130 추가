@@ -1,0 +1,13 @@
+a = [3, 2, 1, 5, 6, 8, 9]
+n = int(input("수를 입력하세요 : "))
+
+# n이 14일때, 여기서 값은 6+8 으로 2가 출력된다.
+
+for i in range (len(a)):
+    if a[i] == n:
+        print(1)
+        break
+    elif len(a) - 1 != i:
+        if a[i] + a[i+1] == n:
+            print(2)
+            break
