@@ -1,0 +1,67 @@
+"""
+import random
+
+a = random.randrange(100, 1000)
+b = random.randrange(100, 1000)
+c = random.randrange(100, 1000)
+
+print("A: ", a)
+print("B: ", b)
+print("C: ", c)
+
+result = a * b * c
+result = str(result)
+result_list = []
+count_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+for i in range(len(result)):
+    result_list.append(result[i])
+print(result_list)
+
+for i in range(len(result_list)):
+    count_list[int(result_list[i])] += 1
+
+print(count_list)
+"""
+
+import cv2
+import torch
+from torch.utils.data.dataset import Dataset
+
+
+class customDataset(Dataset):
+
+    def __init__(self, file_path):
+
+        f = open("text", 'r')
+        total_line = f.readlines()
+
+        self.img_path = []
+        self.label_list = []
+
+        for i in range(20):
+            img = total_line[i].split(', ')[0]
+            self.img_path.append(img)
+            self.label_list.append(total_line[i].split(', ')[1].split('\n')[0])
+
+        self.data_len = len(self.label_list)
+
+    def __getitem__(self, index):
+
+        img = cv2.imread(self.img_path[index])
+        resize_img = cv2.resize(img, (224, 224))
+
+        label = self.label_list[index]
+
+        return img, label
+
+    def __len__(self):
+        return self.data_len
+
+
+path = "text"
+custom_dataset = customDataset(path)
+train_loader = torch.utils.data.DataLoader(dataset=custom_dataset, batch_size=1, shuffle=False)
+
+for img, label in train_loader:
+    print(img.shape, label)
