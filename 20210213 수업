@@ -1,0 +1,105 @@
+"""
+# list + dictionary
+
+a = {'temper': 30, 'humidit': 10, 'wind': 4}
+b = {'temper': 32, 'humidit': 12, 'wind': 4}
+c = {'temper': 34, 'humidit': 13, 'wind': 4}
+d = {'temper': 35, 'humidit': 14, 'wind': 4}
+"""
+
+"""
+class Bu:
+
+    def __init__(self, ingre):
+
+        self.ingre = ingre
+        # self.price = price
+        # self.given_money = given_money
+
+    def ingre_print(self):
+        print(self.ingre)
+
+    def give_change(self, price, given_money):
+        # given_money = int(input("given money: "))
+        # price = int(input("price: "))
+        print("change: ", given_money-price)
+
+
+temp = Bu("cream")
+temp.give_change(400, 1000)
+"""
+"""
+
+max_num = 3
+stack_list = []
+
+
+class push_and_pop():
+
+    def push(self, item, stack_list, max_num):
+
+        if len(stack_list) < max_num:
+            stack_list.append(item)
+        else:
+            print("overflow")
+
+    def pop(self, stack_list):
+
+        if len(stack_list) > 0:
+            print("pop ", stack_list[0])
+            del stack_list[0]
+        else:
+            print("underflow")
+
+
+temp = push_and_pop()
+
+while True:
+
+    push_or_pop = input("Select push or pop: ")
+
+    if push_or_pop == "push":
+        num = int(input("Enter the push number: "))
+        temp.push(num, stack_list, max_num)
+
+    elif push_or_pop == "pop":
+        temp.pop(stack_list)
+"""
+"""
+
+temp_list = [1, 1]
+
+a = int(input("  :  "))
+i = 1
+
+for i in range(1, a):
+
+   temp_list.append(temp_list[i-1]+temp_list[i])
+
+print(temp_list)
+"""
+
+# 1463
+
+import random
+
+N = 
+#random.randrange(1, 1000000)
+print("N: ", N)
+count = 0
+
+while N != 1:
+
+    if N % 3 == 0:
+        N = N // 3
+        count += 1
+
+    elif N % 2 == 0:
+        N = N // 2
+        count += 1
+
+    else:
+        N = N - 1
+        count += 1
+
+print("count: ", count)
