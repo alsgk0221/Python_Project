@@ -1,0 +1,84 @@
+"""
+# 5565
+
+temp_list = [400, 700, 1000, 1400, 500, 600, 1200, 510, 800, 900]
+total_price = 0
+
+for i in range(len(temp_list)):
+    total_price += temp_list[i]
+
+print(total_price)
+
+
+key_num = 0
+nine_price = 0
+
+for k in range(len(temp_list)-1):
+     nine_price += temp_list[k]
+     print(temp_list[k])
+
+key_num = total_price - nine_price
+print(key_num)
+"""
+
+"""
+# 6603 (미완성)
+
+temp_list = [1, 2, 3, 4, 5, 6, 7]
+second_temp_list = []
+temp = 7
+num_of_cases = temp*(temp-1)*(temp-2)*(temp-3)*(temp-4)*(temp-5)//720
+print(num_of_cases)
+print(temp, temp_list)
+
+for i in range(6):
+    second_temp_list.append()
+"""
+"""
+# 3052
+
+temp_list = [42, 42, 42, 43]
+reminder_list = []
+final_reminder_list = []
+
+for i in range(len(temp_list)):
+    reminder_list.append(temp_list[i]%42)
+print(reminder_list)
+
+for i in range(len(reminder_list)):
+    flag = 0
+    
+    for k in range(len(final_reminder_list)):
+        if final_reminder_list[k] == reminder_list[i]:
+            flag = 1
+            
+    if flag == 0:
+        final_reminder_list.append(reminder_list[i])
+
+print(final_reminder_list)
+print(len(final_reminder_list))
+"""
+"""
+# 1193 (미완성)
+
+N = int(input())
+A = [1]
+B = [1]
+arrow = 0
+for i in range(2, N):
+
+    for k in range(1, i+1):
+        if arrow == 0:
+            B.append(k)
+        else:
+            B.append(i+1-k)
+    if arrow == 0:
+        arrow = -1
+    else:
+        arrow = 0
+print(B)
+
+
+#1, 1, 2, 1, 2, 3
+print(B)
+"""
