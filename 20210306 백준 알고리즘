@@ -1,0 +1,64 @@
+"""
+# 5543
+import random
+
+burger1 = random.randrange(100, 2000)
+burger2 = random.randrange(100, 2000)
+burger3 = random.randrange(100, 2000)
+drink1 = random.randrange(100, 2000)
+drink2 = random.randrange(100, 2000)
+
+print(burger1)
+print(burger2)
+print(burger3)
+print("-------------")
+print(drink1)
+print(drink2)
+
+chosen_burger = burger1
+chosen_drink = drink1
+
+if chosen_drink > drink2:
+    chosen_drink = drink2
+if chosen_burger > burger2:
+    chosen_burger = burger2
+elif chosen_burger > burger3:
+    chosen_burger = burger3
+
+temp = chosen_burger + chosen_drink - 50
+print("-------------")
+print("price : ", temp)
+"""
+
+# 16435
+
+import random
+
+fruit_amount = random.randrange(1, 15)
+bird_length = random.randrange(1, 15)
+height_list = []
+temp_list = []
+edible_fruit = 0
+
+print("amount of fruits : ", fruit_amount)
+print("length of the bird : ", bird_length)
+
+for i in range(fruit_amount):
+    height_list.append(random.randrange(1, 15))
+
+print(height_list)
+
+for k in range(len(height_list)):
+    if height_list[k] <= bird_length:
+        bird_length += 1
+        temp_list.append(height_list[k])
+
+print(bird_length)
+# for k in range(len(height_list)):
+    # if height_list[k] <= bird_length:
+        # temp_list.append(height_list[k])
+        # edible_fruit += 1
+
+# print(edible_fruit)
+# bird_length += edible_fruit
+# edible_fruit = 0
