@@ -1,0 +1,26 @@
+import getpass
+import os
+import platform
+
+user = getpass.getuser()
+
+if platform.system() == 'Windows':
+    BASE_DIR = "C:/Users/{}/PycharmProjects/pythonProject".format(user)
+elif platform.system() == 'Linux':
+    BASE_DIR = "/home/{}/PycharmProjects/untitled29/DeepLearning".format(user)
+else:
+    BASE_DIR = None
+    exit()
+
+path = [BASE_DIR + "/images/cat",
+        BASE_DIR + "/images/dog"]
+f = open(BASE_DIR + "/labels/label", 'w')
+
+for name in path:
+    lists = os.listdir(name)
+    f = open(BASE_DIR + "/labels/label", 'a')
+    for index in lists:
+        if 'cat' in index:
+            f.write(BASE_DIR + "/images/cat/" + index + ',' + '0' + "\n")
+        elif 'dog' in index:
+            f.write(BASE_DIR + "/images/dog/" + index + ',' + '1' + "\n")
