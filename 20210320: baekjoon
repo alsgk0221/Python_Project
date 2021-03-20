@@ -1,0 +1,23 @@
+# 1932
+
+N = 5
+
+temp = [[7], [3, 8], [8, 1, 0], [2, 7, 4, 4], [4, 5, 2, 6, 5]]
+
+print(temp[0][0])
+print(temp[1][0], temp[1][1])
+print(temp[2][0], temp[2][1], temp[2][2])
+print(temp[3][0], temp[3][1], temp[3][2], temp[3][3])
+print(temp[4][0], temp[4][1], temp[4][2], temp[4][3], temp[4][4])
+
+for k in range(N-1, 1, -1):
+    for i in range(k):
+        if temp[k][i] > temp[k][i+1]:
+            temp[k-1][i] += temp[k][i]
+        else:
+            temp[k-1][i] += temp[k][i + 1]
+
+if temp[1][0] > temp[1][1]:
+    print(temp[0][0] + temp[1][0])
+else:
+    print(temp[0][0] + temp[1][1])
