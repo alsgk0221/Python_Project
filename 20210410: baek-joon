@@ -1,0 +1,58 @@
+"""
+# 1067
+
+N = 4
+X = [1, 2, 3, 4]
+Y = [6, 7, 8, 5]
+temp = 0
+highest_temp = 0
+
+
+for g in range(N):
+
+    # 순환이동
+    for i in range(0, N - 1):
+        X[i], X[N - 1] = X[N - 1], X[i]
+
+    #print("X : ", X)
+
+    # S(temp)의 값 구하기
+    for k in range(0, N):
+        temp += X[k] * Y[k]
+
+        #print(k, "temp : ", temp)
+
+    # 가장 높은 값 정하기
+    if temp > highest_temp:
+        highest_temp = temp
+        temp = 0
+    else:
+        temp = 0
+
+    #print("the highest temp : ", highest_temp)
+    #print("-----------------------------------")
+
+print(highest_temp)
+"""
+
+# 11047 (미완성)
+
+N = 10 # 동전의 종류
+K = 4700 # 만들어야하는 값
+
+temp = [1, 5, 10, 50, 100, 500, 1000, 5000, 10000, 50000]
+max_num = 0
+count = 0
+
+for i in range(len(temp)):
+    if temp[i] > K:
+        max_num = temp[i-1]
+        break
+
+print(max_num)
+
+count = K // max_num
+K = K % max_num
+
+print(count)
+print(K)
