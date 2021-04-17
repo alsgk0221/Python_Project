@@ -1,0 +1,65 @@
+import cv2
+import torch
+import torchvision
+import torch.nn as nn
+
+
+xml = 'haarcascade_frontalface_alt.xml'
+
+face_cascade = cv2.CascadeClassifier(xml)
+
+cap = cv2.VideoCapture(0)
+cap.set(3, 640)
+cap.set(4, 480)
+
+
+model = torchvision.models.vgg11(pretrained=True)
+model.fc = nn.Linear(512, 2)
+model.load_state_dict(torch.load("model_127.pth", map_location=torch.device('cpu')))
+
+def model_predict(image, model):
+    model.eval()
+
+    size = (256, 256)
+
+    # image = ImageOps.fit(image, size, Image.ANTIALIAS)
+    # image = np.asarray(image).astype(np.float32)
+
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    img_resize = (cv2.resize(img, dsize=(256, 256), interpolation=cv2.INTER_CUBIC)) / 255.
+    img_resize = torch.tensor(img_resize)
+    img_resize = img_resize.permute(2, 0, 1)
+    img_resize = img_resize.unsqueeze(0)
+    img_resize = img_resize.float()
+
+    predict = model(img_resize)
+    values, label = torch.topk(predict, k = 1)
+    if label == 0:
+        return 'non mask'
+    else:
+        return 'mask'
+
+
+
+while (True):
+    ret, frame = cap.read()
+    font = cv2.FONT_HERSHEY_SIMPLEX
+
+    frame = cv2.flip(frame, 1)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    faces = face_cascade.detectMultiScale(gray, 1.05, 5)
+    print("Number of faces detected: " + str(len(faces)))
+    if len(faces):
+        for (x, y, w, h) in faces:
+            print(frame.shape)
+            nan_or_mask = model_predict(frame, model)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            cv2.putText(frame, str(nan_or_mask), (x + 5, y - 5), font, 1, (255, 255, 255), 2)
+    cv2.imshow('result', frame)
+    k = cv2.waitKey(30) & 0xff
+    if k == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
