@@ -1,0 +1,65 @@
+"""
+# 1225
+
+a = str(123)
+list_a = []
+b = str(45)
+list_b = []
+
+for e in range(len(a)):
+    temp = int(a[e])
+    list_a.append(temp)
+
+for g in range(len(b)):
+    temp = int(b[g])
+    list_b.append(temp)
+
+count  = 0
+
+for i in range(len(list_a)):
+    for k in range(len(list_b)):
+        count += list_a[i] * list_b[k]
+
+print(count)
+"""
+
+# 1339
+
+total_list = [["A", 0], ["B", 0], ["C", 0], ["D", 0], ["E", 0], ["F", 0], ["G", 0], ["H", 0],
+              ["I", 0], ["J", 0]]
+
+temp_1 = "BBB"
+temp_2 = "AAA"
+
+for i in range(len(temp_1)):
+
+    for j in range(len(total_list)):
+
+        if temp_1[i] == total_list[j][0]:
+            total_list[j][1] = total_list[j][1] + 10 ** ((len(temp_1)) - (i + 1))
+            break
+
+for i in range(len(temp_2)):
+
+    for j in range(len(total_list)):
+
+        if temp_2[i] == total_list[j][0]:
+            total_list[j][1] = total_list[j][1] + 10 ** ((len(temp_2)) - (i + 1))
+            break
+
+for j in range(len(total_list)):
+
+    for k in range(len(total_list)-1):
+
+            if total_list[k][1] < total_list[k+1][1]:
+                total_list[k], total_list[k+1] = total_list[k+1], [k]
+
+m = 0
+total_num = 0
+for n in range(len(total_list)):
+    if total_list[n][1] != 0:
+        total_list[n][1] *= 9 - m
+        total_num += total_list[n][1]
+        m += 1
+
+print(total_num)
