@@ -1,0 +1,70 @@
+"""
+# 13458
+
+# 시험장의 수
+N = 5
+
+# 응시자의 수
+A = [1000000, 1000000, 1000000, 1000000, 1000000]
+
+# 총감독관이 감시 할 수 있는 응시자의 수
+B = 5
+
+# 부감독관이 감시 할 수 있는 응시자의 수
+C = 7
+
+# 총감독관과 부감독관의 수
+count = N
+
+for i in range(0, len(A)):
+
+    count += (A[i] - B) // C
+    if (A[i] - B) % C != 0:
+        count += 1
+
+print(count)
+"""
+"""
+
+# 9012
+
+temp = str(input("Enter: "))
+count1 = 0
+count2 = 0
+flag = 0
+
+for i in range(len(temp)):
+    if temp[i] == '(':
+        count1 += 1
+    elif temp[i] == ')':
+        count2 += 1
+        if count2 > count1:
+            flag = 1
+
+if count1 == count2:
+    if flag == 0:
+        print("Yes")
+    else:
+        print("No")
+else:
+    print("NO")
+    """
+"""
+# 10773
+
+K = 4
+temp_list = [3, 0, 4, 0]
+final_list = []
+count = 0
+
+for i in range(K):
+    if temp_list[i] != 0:
+        final_list.append(temp_list[i])
+    else:
+        del final_list[len(final_list)-1]
+
+for g in range(len(final_list)):
+    count += final_list[g]
+
+print(count)
+"""
