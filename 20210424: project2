@@ -1,0 +1,20 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://m.news.naver.com/covid19/index.nhn'
+response = requests.get(url)
+source = response.text
+
+soup = BeautifulSoup(source, 'html.parser')
+print(soup)
+
+top_list = soup.findAll("em", {"class":"info_title"})
+
+print(top_list)
+
+#print(top_list)
+# index = 1
+# for i in top_list:
+#     print(index, i.text.strip())
+#     index += 1
+# <em class="info_title">사망자</em>
