@@ -3,13 +3,23 @@ import requests
 import pyaudio
 import wave
 import audioop
+import playsound
+from gtts import gTTS
 from twilio.rest import Client
-
 
 TWILIO_ACCOUNT_SID = 'ACf537bf00db9809ed46d3b2049972172f'
 TWILIO_AUTH_TOKEN = '13b81d114866706e8c4bed2f6088b688'
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
+client.messages.create(
+to="+821089747027",
+from_="+16179344181",
+body="시스템 작동이 시작되었습니다."
+)
+
+tts = gTTS(text='시스템 작동이 시작되었습니다.', lang='ko')
+tts.save('welcome.mp3')
+playsound.playsound('welcome.mp3')
 
 po = pyaudio.PyAudio()
 
