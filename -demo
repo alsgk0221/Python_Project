@@ -1,0 +1,87 @@
+from models.test_model import Model, Dvector
+from utils.config import parse_args
+import torch
+import librosa
+import torchvision
+import torchaudio
+import numpy as np
+from PIL import Image
+
+def extract_spectrogram(clip, args):
+	num_channels = 3
+	window_sizes = [25, 50, 100] # 음성의 길이를 얼마나 자를지 결정
+	hop_sizes = [10, 25, 50] # (window의 절반만 사용)
+	specs = []
+	for i in range(num_channels):
+		window_length = int(round(window_sizes[i] * args.sampling_rate / 1000))
+		hop_length = int(round(hop_sizes[i] * args.sampling_rate / 1000))
+		clip = torch.Tensor(clip)
+		#  사람이 들을 수 있는 경계값으로 scale 해주는 작업.
+		spec = torchaudio.transforms.MelSpectrogram(sample_rate=args.sampling_rate, n_fft=512,
+													win_length=window_length,
+                                                    hop_length=hop_length, n_mels=128)(clip)
+		eps = 1e-6 # 10의 -6승 (최소값을 더해주는 것)
+		spec = spec.numpy()
+		spec = np.log(spec + eps)
+		spec = np.asarray(torchvision.transforms.Resize((128, 128))(Image.fromarray(spec)))
+		specs.append(spec)
+
+	audio_array = np.array(specs)
+	return audio_array
+
+def processing(args, data_path):
+
+    clip, sr = librosa.load(data_path, sr=args.sampling_rate)
+    values = extract_spectrogram(clip, args)
+    return values
+
+def sound_model(audio_path):
+
+    args = parse_args()
+
+    # 모델 불러오는 부분
+    model = Model(args)
+    # model = Model(args) or cuda
+    location = "./sound_model/sound_model_1.pth"
+    print("load model : ", location)
+    checkpoint = torch.load(location, map_location=torch.device('cpu'))
+    # # load params
+    model.load_state_dict(checkpoint['model_state_dict'])
+
+    # 모델 eval를 시키면 학습이 안됨 -> 데모 버전에서만 사용.
+    model.eval()
+
+    # 데이터를 불러와서 전처리 하는 과정.
+    values = processing(args, audio_path)
+    #values = values.reshape(-1, 128, 250)
+    values = torch.Tensor(values)
+    #values = values.cuda()
+    values = values.unsqueeze(0)
+
+    # model 에서 input 이 들어가고 예측값이 나옴.
+    pred = model(values)
+
+    # 예측 값 중 가장 큰 값의 라벨을 리턴함.
+    pred_label = torch.argmax(pred, dim=1)
+
+    print("pred and pred_label ", pred, pred_label)
+
+    return pred_label
+
+# 해당 함수에 파일 경로를 전달하면 output이 나옴.
+sound_model('./data/audios/discomfort/1309B82C-F146-46F0-A723-45345AFA6EA8-1430703937-1.0-f-48-dc.wav')
+# return pred value
+
+# 문제점 1. overfitting 되게 학습이 되어 있음 한쪽에 치중되서 학습이 되어짐.
+#(데이터에서 hungry 데이터의 개수가 불균형하게 많아 정확도 = 90 정도 이지만 한쪽으로 결과가 치우침)
+
+# Hungry 랑 discomfort 했을때 정확도 83 까지 찍음
+#(hungry 개수 30개로 랜덤하게 선택, discomfort 개수 27개로 학습
+
+# tired 까지 하면 60퍼 까지 찍음
+#
+'''
+방안 1, 가지수 줄이기 
+방안 2, 데이터 추가 수집 
+방안 3, 그대로
+'''
