@@ -1,0 +1,88 @@
+import pygame
+import random
+from datetime import datetime
+from datetime import timedelta
+from Snake_Game import Apple
+from Snake_Game import Snake
+from Snake_Game.Text import print_text
+
+pygame.init()
+
+pygame.display.set_caption("Test Window")
+FPSCLOCK = pygame.time.Clock()
+BACK_YELLOW = (255, 255, 150)
+RED = (255, 100, 100)
+GREEN = (128, 255, 0)
+size = [625, 625]
+screen = pygame.display.set_mode(size)
+
+flag = 0
+score = 0
+
+done = False
+clock = pygame.time.Clock()
+last_moved_time = datetime.now()
+
+KEY_DIRECTION = {
+    pygame.K_UP: 'N',
+    pygame.K_DOWN: 'S',
+    pygame.K_LEFT: 'W',
+    pygame.K_RIGHT: 'E'
+}
+
+def draw_block(screen, color, position):
+    block = pygame.Rect((position[0] * 20, position[1] * 20),
+                        (20, 20))
+    pygame.draw.rect(screen, color, block)
+
+def runSnake(score):
+    global done, last_moved_time
+
+    snake = Snake()
+    apple = Apple()
+
+    while not done:
+        clock.tick(10)
+        screen.fill(BACK_YELLOW)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    snake.direction = 'N'
+                elif event.key == pygame.K_DOWN:
+                    snake.direction = 'S'
+                elif event.key == pygame.K_LEFT:
+                    snake.direction = 'W'
+                elif event.key == pygame.K_RIGHT:
+                    snake.direction = 'E'
+
+                if event.key == KEY_DIRECTION:
+                    snake.direction = KEY_DIRECTION[event.key]
+
+        if snake.positions[0] == apple.position:
+            snake.grow()
+            score += 1
+            apple.position = (random.randint(0, 19), random.randint(0, 19))
+
+        if timedelta(seconds=0.5) <= datetime.now() - last_moved_time:
+            snake.move()
+
+        if snake.positions[0] in snake.positions[1:]:
+            print("뱀이 자신의 몸에 닿았습니다.")
+            print_text("Colliding with itself", str(score))
+            done = True
+
+        temp = snake.crash()
+        if temp == True:
+            print("뱀이 벽에 충돌했습니다.")
+            print_text("Colliding into the wall", str(score))
+            done = True
+
+        snake.draw()
+        apple.draw()
+        pygame.display.update()
+
+runSnake(score)
+pygame.quit()
