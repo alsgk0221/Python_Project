@@ -55,13 +55,3 @@ if flag==0:
     print("prime")
 else:
     print("not prime")
-
-
-
-
-
-
-
-
-
-
