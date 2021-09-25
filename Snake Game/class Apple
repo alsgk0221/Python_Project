@@ -1,0 +1,13 @@
+import pygame
+from Snake_Game.main import draw_block
+
+RED = (255, 100, 100)
+size = [625, 625]
+screen = pygame.display.set_mode(size)
+
+class Apple:
+    def __init__(self, position=(5, 5)):
+        self.position = position
+
+    def draw(self):
+        draw_block(screen, RED, self.position)
