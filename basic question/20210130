@@ -1,0 +1,46 @@
+"""
+#미완성 버전
+a = [1, 7, 9]
+n = int(input("수를 입력하세요 : "))
+result = 0
+flag = 0
+
+for i in range(len(a)):
+    for k in range(len(a)):
+        if a[i] + a[k] == n:
+            if i != k:
+                flag = 1
+                break
+
+if flag == 1:
+    print(True)
+else:
+    print(False)
+"""
+"""
+#dictionary사용버전
+test = {}
+
+a = [1, 3, 9]
+n = int(input("수를 입력하세요 : "))
+temp = n
+
+for i in range(len(a)):
+    test[a[i]] = a[i]
+
+for i in range(len(a)):
+    n = temp
+    n = n - a[i]
+    if n != n-a[i]:
+        continue
+    try:
+        test[n]
+        check = True
+        break
+    except:
+        check = False
+        continue
+
+print(check)
+"""
+
