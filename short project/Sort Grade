@@ -1,0 +1,48 @@
+grade_list = {'A+': 4.5, 'A0': 4.2, 'A-': 4.0,
+             'B+': 3.5, 'B0': 3.2, 'B-': 3.0,
+             'C+': 2.5, 'C0': 2.2, 'C-': 2.0,
+             'D+': 1.5, 'D0': 1.2, 'D-': 1.0,
+             'F': 0.5}
+
+grades = ["DS7651 A0", "CA0055 D+", "AI5543 C0",
+        "OS1808 B-", "DS7651 B+", "AI0001 F", "DB0001 B-",
+         "AI5543 D+", "DS7651 A+", "OS1808 B-"]
+
+new_grades = []
+
+    
+def delete_same_subject():
+
+    for i in range(len(grades)):
+
+        subject = grades[i].split(' ')[0]
+        temp_grade = grades[i].split(' ')[1]
+
+        check = True
+        for j in range(len(new_grades)):
+            new_subject = new_grades[j].split(' ')[0]
+            new_temp_grade = new_grades[j].split(' ')[1]
+
+            if subject == new_subject:
+                check = False
+                if grade_list[new_temp_grade] < grade_list[temp_grade]:
+                    new_grades[j] = new_subject + ' ' + temp_grade
+
+        if check:
+            new_grades.append(subject + ' ' + temp_grade)
+
+    return new_grades
+
+
+def sort_new_grades():
+
+    for i in range(len(new_grades)):
+        for k in range(len(new_grades) - 1):
+            if grade_list[new_grades[k].split(' ')[1]] < grade_list[new_grades[k + 1].split(' ')[1]]:
+                new_grades[k], new_grades[k + 1] = new_grades[k + 1], new_grades[k]
+
+    print(new_grades)
+
+
+new_grades = delete_same_subject()
+sort_new_grades()
