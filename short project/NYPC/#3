@@ -1,0 +1,117 @@
+"""
+# 몰이 사냥 - 디버깅 포기
+
+X = 3  # 스킬의 사거리
+R = 2  # 스킬의 효과 범위
+N = 3  # 몬스터의 수
+monster = [[-1, 1], [7, -3], [3, 0]]  # 각 몬스터의 초기 위치와 점프하는 정도
+time = 4  # 1씩 증가하는 초 (시간)
+
+# 스킬 단 한번으로 몬스터를 모두 다 죽일 수 있다면 T, 아니라면 F
+
+flag = 0
+temp = False
+
+for k in range(0, X+1):
+
+    for i in range(N):
+        if monster[i][0] + time * monster[i][1] >= k and monster[i][0] + time * monster[i][1] <= R:
+            flag = 0
+        else:
+            flag = 1
+
+    if flag == 0:
+        print('T')
+        temp = True
+        break
+    else:
+        flag = 0
+
+if temp == False:
+    print('F')
+
+# 최대 HP
+
+H = int(input("시작 체력 : "))  # 시작 체력 (10)
+T = int(input("턴 수 : "))  # 턴 수 (3)
+
+A_list = []  # 2, 1, 3
+H_list = []  # 20, 10, 40
+
+for k in range(T):
+    A_list.append(int(input("A : ")))
+    H_list.append(int(input("H : ")))
+
+HH = 0
+
+for i in range(len(H_list)):
+    if A_list[i] == 1:
+        H -= H_list[i]
+    elif A_list[i] == 2:
+        H += H_list[i]
+    else:
+        HH = H + H_list[i]
+        break
+
+print(HH)
+
+# 소수의 합
+
+N = int(input("N : "))
+temp = 2
+flag = 0
+count = 0
+num = []
+
+while temp != N+1:
+    for i in range(2, temp//2+1):
+        if temp % i == 0:
+            flag = 1
+    if flag == 0:
+        num.append(temp)
+    flag = 0
+    temp += 1
+
+h = 0
+for item in num:
+
+    h = N // item
+    for k in range(1, h+1):
+
+        if N - item * k == 0:
+            count += 1
+
+        elif N - item * k in num:
+            if N - item * k > item:
+                count += 1
+
+print(count % 1000000007)
+"""
+
+# 넥슨 사진관 - 미완성
+
+N = 7  # 캐릭터와 의자의 수
+Q = 3  # 업무의 수
+
+n_list = [3, 3, 7, 5, 7, 5, 3]
+
+def t_one(a, b, n_list):
+    n_list[a-1] = b
+
+def t_two(a, b, n_list):
+    count_list = []
+    for item in n_list:
+        res = 0  # 결과값 - 추가하기
+        return res
+
+for i in range(Q):
+
+    t = int(input("t : "))
+    a = int(input("a : "))
+    b = int(input("b : "))
+
+    if t == 1:
+        t_one(a, b, n_list)
+    else:
+        res = t_two(a, b, n_list)
+        print(res)
