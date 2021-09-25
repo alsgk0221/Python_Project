@@ -1,0 +1,156 @@
+# 스피드전 할까 아이템전 할까
+
+A_team = [5, 3, 2, 4]
+B_team = [6, 8, 9, 4]
+
+total_a = 0
+total_b = 0
+highest_a = A_team[0]
+highest_b = B_team[0]
+S = None
+I = None
+
+# 0 : 무승부, 1 : 승, -1 : 패
+
+for item in A_team:
+    total_a += item
+    if item > highest_a:
+        highest_a = item
+
+for item in B_team:
+    total_b += item
+    if item > highest_b:
+        highest_b = item
+
+if total_a > total_b:
+    S = 1
+elif total_a < total_b:
+    S = -1
+else:
+    S = 0
+
+if highest_a > highest_b:
+    I = 1
+elif highest_a < highest_b:
+    I = -1
+else:
+    I = 0
+
+if S == I:
+    print("R")
+elif S == 1 and I != 1:
+    print("S")
+elif S != 1 and I == 1:
+    print("I")
+
+# 실력별 매칭
+
+N = int(input("대기열에 있는 유저의 수 : "))  # test = 5
+S = int(input("새 유저의 실력 점수 : ")) # test = 60
+K = int(input("찾아야 하는 유저의 수 : ")) # test = 3
+
+score = []
+temp = []
+sorted_temp = []
+diff = []
+sorted_diff = []
+
+for e in range(N):
+    score.append(int(input("각 유저의 실력 점수 : ")))  # test = 20 80 100 40 10
+    temp.append(e+1)
+
+print(score)
+print(temp)
+
+for item in score:
+    if item > S:
+        diff.append(item - S)
+    else:
+        diff.append(S - item)
+
+s = sorted(range(len(diff)), key = lambda  k : diff[k])
+
+for i in range(N):
+    sorted_diff.append(diff[s[i]])
+    sorted_temp.append(temp[s[i]])
+
+if score[sorted_temp[K-1]-1] > score[sorted_temp[K]-1]:
+    sorted_temp[K-1], sorted_temp[K] = sorted_temp[K], sorted_temp[K-1]
+
+for j in range(K):
+    print(sorted_temp[j], end=' ')
+
+
+# 이어달리기 - 미완성
+
+N = 4   # int(input("유저의 수 :"))
+score = [3000, 3100, 3200, 3300, 5000]  # []
+final_score = []
+
+# temp = 0
+# for i in range(N):
+#     temp = str(input(" 각 유저의 최고 기록 : "))
+#     score.append(int(temp.split(":")[0] + temp.split(":")[1] + temp.split(":")[2]))
+
+def make_to_even(score, final_score):
+
+    total = 0
+    aver = 0
+    for item in score:
+        total += item
+    aver = total / N
+    test = aver - score[0]
+    test_index = 0
+
+    for i in range(N):
+        if score[i] > aver:
+            if item - aver > test:
+                test = item - aver
+                test_index = i
+        else:
+            if aver - item > test:
+                test = aver - item
+                test_index = i
+
+    for k in range(N):
+        if k != test_index:
+            final_score.append(score[k])
+
+    return final_score
+
+
+if N % 2 != 0:
+    final_score = make_to_even(score, final_score)
+else:
+    final_score = score
+
+print(final_score)
+
+# 약수
+
+A = int(input("A : "))
+B = int(input("B : "))
+count = 0
+
+while A != B + 1:
+    for i in range(1, A+1):
+        if A % i == 0:
+            count += 1
+    A += 1
+
+print(count)
+
+
+# 요리 제작
+
+N = 3
+ingredient = [100, 0]
+recipe = [1, 1]
+smallest = ingredient[0] // recipe[0]
+
+for i in range(N):
+    if ingredient[i] // recipe[i] < smallest:
+        smallest = ingredient[i] // recipe[i]
+
+print(smallest)
+"""
