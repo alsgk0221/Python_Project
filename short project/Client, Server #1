@@ -1,3 +1,5 @@
+#client
+
 from socket import *
 
 BUF_SIZE = 1024
