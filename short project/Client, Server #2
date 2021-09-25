@@ -1,3 +1,5 @@
+#server
+
 from socket import *
 serverSock = socket(AF_INET, SOCK_STREAM)
 serverSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
