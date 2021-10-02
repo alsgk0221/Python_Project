@@ -16,7 +16,6 @@ Long-term Projects
 Short-term Projects
 -------------
 > - NYPC
-> - Car Game
 > - Blackjack
 > - Sort Grade
 > - Check the Mask
