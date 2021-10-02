@@ -7,25 +7,26 @@ Long-term Projects
 > - Snake Game
 > - Deaf Parent Helper
 
-> Short-term Projects
-> > - NYPC
-> > - Car Game
-> > - Blackjack
-> > - Sort Grade
-> > - Check the Mask
-> > - Write Read Like Hate 
-> > - Which Word used the most?
+Short-term Projects
+-------------
+> - NYPC
+> - Car Game
+> - Blackjack
+> - Sort Grade
+> - Check the Mask
+> - Write Read Like Hate 
+> - Which Word used the most?
 
+Application
+----------
+> - BeautifulSoup
+> - Client & Server
+> - Deep learning
+> - Torchvision
+> - COCO Dataset
 
-> Application
-> > > - BeautifulSoup
-> > > - Client & Server
-> > > - Deep learning
-> > > - Torchvision
-> > > - COCO Dataset
-
-
-> etc.
-> > - basic question
-> > - Streamlit
-> > - Baekjoon Algorithm
+etc
+---
+> - basic question
+> - Streamlit
+> - Baekjoon Algorithm
