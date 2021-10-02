@@ -1,11 +1,11 @@
 # Python_Project
 
-> Long-term Projects
-> > - Tic Tak Toe
-> > - Cat or Dog
-> > - Snake Game
-> > - Deaf Parent Helper
-
+Long-term Projects
+-------------
+> - Tic Tak Toe
+> - Cat or Dog
+> - Snake Game
+> - Deaf Parent Helper
 
 > Short-term Projects
 > > - NYPC
