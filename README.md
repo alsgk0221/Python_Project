@@ -15,7 +15,7 @@
 > > - Write Read Like Hate 
 > > - Which Word used the most?
 
-> > - Application
+> Application
 > > > - BeautifulSoup
 > > > - Client & Server
 > > > - Deep learning
