@@ -6,6 +6,7 @@
 > > - Snake Game
 > > - Deaf Parent Helper
 
+
 > Short-term Projects
 > > - NYPC
 > > - Car Game
@@ -15,13 +16,14 @@
 > > - Write Read Like Hate 
 > > - Which Word used the most?
 
+
 > Application
 > > > - BeautifulSoup
 > > > - Client & Server
 > > > - Deep learning
 > > > - Torchvision
 > > > - COCO Dataset
-> > > 
+
 
 > etc.
 > > - basic question
