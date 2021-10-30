@@ -29,6 +29,7 @@ Application
 > - Deep learning
 > - Torchvision
 > - COCO Dataset
+> - Colaboratory
 
 etc
 ---
