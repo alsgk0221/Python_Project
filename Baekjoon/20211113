@@ -1,0 +1,63 @@
+"""
+# 23351
+
+# N = int(input()) # 화분의 수
+# K = int(input()) # 각 화분 초기 수분
+# A = int(input()) # 물 주는 화분 수
+# B = int(input()) # 증가하는 수분
+
+N, K, A, B = map(int,input().split())
+
+plant = [] # 각 화분의 수분 리스트
+day = 0
+death = 0
+
+# def sort(plant):
+#     for r in range(len(plant) - 1):
+#         for r in range(len(plant)-1):
+#             if plant[r] > plant[r+1]:
+#              plant[r], plant[r+1] = plant[r+1], plant[r]
+
+def turn(plant, A, B, day, death):
+    plant.sort()
+    day += 1
+    for e in range(A):
+        plant[e] += B
+    for n in range(len(plant)):
+        plant[n] -= 1
+        if plant[n] == 0:
+            death = 1
+    return death, day
+
+for i in range(N):
+    plant.append(K)
+
+while True:
+    death, day = turn(plant, A, B, day, death)
+    if death == 1:
+        break
+
+print(day)
+"""
+
+# 9063
+
+N = 2 # 구슬의 개수
+mar = [[10, 20], [30, 40]]# 구슬의 좌표 리스트
+x_min = mar[0][0]
+x_max = mar[0][0]
+y_min = mar[0][1]
+y_max = mar[0][1]
+
+for i in range(len(mar)):
+    if mar[i][0] < x_min:
+        x_min = mar[i][0]
+    if mar[i][0] > x_max:
+        x_max = mar[i][0]
+    if mar[i][1] < y_min:
+        y_min = mar[i][1]
+    if mar[i][1] > y_max:
+        y_max = mar[i][1]
+
+res = (y_max - y_min) * (x_max - x_min)
+print(res)
