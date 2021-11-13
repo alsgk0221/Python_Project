@@ -31,6 +31,7 @@ Application
 > - Torchvision
 > - COCO Dataset
 > - Colaboratory
+> - YOLO v3
 
 etc
 ---
