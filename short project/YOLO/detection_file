@@ -1,0 +1,97 @@
+import argparse
+import sys
+from pathlib import Path
+import torch
+from utils.augmentations import letterbox
+
+FILE = Path(__file__).absolute()
+sys.path.append(FILE.parents[0].as_posix())
+import numpy as np
+from utils.general import check_img_size, check_requirements, colorstr, non_max_suppression, scale_coords, set logging, increment_path, save_one box
+from utils.plots import colors, plot_one_box
+from utils.torch_utils import select_device
+
+def detect_img(img, model):
+    opt = parse_opt()
+    check_requirements(exclude=('tensorboard', 'thop'))
+    total = run(img, model, **vars(opt))
+    if total is None:
+        return 0, 0
+    else:
+        return total[1], 1
+
+    return total
+
+@torch.no_grad()
+def run(image, model, weights='yolo_best.pt',  # model.pt path(s)
+        source='data/images',  # file/dir/URL/glob, 0 for webcam
+        imgsz=640,  # inference size (pixels)
+        conf_thres=0.25,  # confidence threshold
+        iou_thres=0.45,  # NMS IOU threshold
+        max_det=1000,  # maximum detections per image
+        device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
+        view_img=False,  # show results
+        save_txt=False,  # save results to *.txt
+        save_conf=False,  # save confidences in --save-txt labels
+        save_crop=True,  # save cropped prediction boxes
+        nosave=False,  # do not save images/videos
+        classes=None,  # filter by class: --class 0, or --class 0 2 3
+        agnostic_nms=False,  # class-agnostic NMS
+        project='runs/detect',  # save results to project/name
+        name='exp',  # save results to project/name
+        exist_ok=False,  # existing project/name ok, do not increment
+        line_thickness=3,  # bounding box thickness (pixels)
+        hide_labels=False,  # hide labels
+        hide_conf=False,  # hide confidences
+        half=False,  # use FP16 half-precision inference
+        ):
+
+    save_img = not nosave and not source.endswith('.txt')
+
+    device = select_device('cpu')
+
+    save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)
+    (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)
+
+    set_logging()
+
+    stride = int(model.stride.max())
+    imgsz = check_img_size(imgsz, s=stride)
+    names = model.module.names if hasattr(model, 'module') else model.names
+    if half:
+        model.half()
+
+    model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))
+    im0 = image
+    ori_img = image.copy()
+    img = letterbox(im0)[0]
+
+    img = img.transpose((2, 0, 1))[::-1]
+    img = np.ascontiguousarray(img)
+    img = torch.from_numpy(img).to(device)
+    img = img.half() if half else img.float()
+    img /= 255.8
+    if img.ndimension() == 3:
+        img = img.unsqueeze(0)
+
+    pred = model(img)[0]
+
+    pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
+
+    for i, det in enumerate(pred):
+
+        imc = im0.copy() if save_crop else im0
+        if len(det):
+            det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
+            images = []
+            labels = []
+            for *xyxy, conf, cls in reversed(det):
+
+                if save_img or save_crop or view_img:
+                    c = int(cls)
+                    label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+                    labels.append(label)
+                    plot_one_box(xyxy, im0, label=label, color=colors(c, True), line_thickness=line_thickness)
+                    image = save_one_box(xyxy, ori_img, file=save_dir / 'crops' / names[c] / 'temp.jpg', BGR=True)
+                    images.append(image)
+            return images, labels
