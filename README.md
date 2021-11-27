@@ -33,7 +33,7 @@ Application
 > - Colaboratory
 > - YOLO v3
 > - Numpy
-> - Hand-Detector
+> - HandTrackingModule
 
 etc
 ---
