@@ -1,0 +1,44 @@
+"""
+# 23627
+
+S = str(input())
+temp = ['p', 'i', 'i', 'r', 'd']
+
+if len(S) >= 5:
+    a = 0
+    flag = 0
+    for i in range(len(S) - 1, len(S) - 6, -1):
+        if S[i] != temp[a]:
+            flag = 1
+        a += 1
+
+    if flag == 0:
+        print("cute")
+    else:
+        print("not cute")
+else:
+    print("not cute")
+"""
+"""
+# 23561
+
+N = 3
+age = [1, 4, 7, 9, 10, 2, 5, 3, 2]
+
+age.sort()
+print(age)
+
+if len(age) % 2 == 0:
+    middle = len(age) // 2 - 1
+else:
+    middle = len(age) // 2
+
+if N % 2 == 0:
+    M_min = middle - N//2 + 1
+    M_max = middle + N//2
+    print(age[M_max] - age[M_min])
+elif N % 2 == 1:
+    M_min = middle - N//2
+    M_max = middle + N//2
+    print(age[M_max] - age[M_min])
+    """
