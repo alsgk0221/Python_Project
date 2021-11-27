@@ -1,0 +1,24 @@
+import streamlit as st
+
+st.title("Title")
+st.header("Header")
+st.subheader("Subheader")
+st.write("Hello World")
+
+if st.button("Click This Button"):
+    st.write("Hello!")
+
+checkbox_bth = st.checkbox("Checkbox Button")
+if checkbox_bth:
+    st.write("Good!")
+
+checkbox_bth2 = st.checkbox("Checkbox button2", value=True)
+
+selected_item = st.radio("Radio Button", ("Hi", "Hello", "Bye"))
+
+if selected_item == "Hi":
+    st.write(":)")
+elif selected_item == "Hello":
+    st.write(":D")
+elif selected_item == "Bye":
+    st.write(":(")
