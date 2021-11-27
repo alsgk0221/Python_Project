@@ -32,6 +32,7 @@ Application
 > - COCO Dataset
 > - Colaboratory
 > - YOLO v3
+> - Hand-Detector
 
 etc
 ---
