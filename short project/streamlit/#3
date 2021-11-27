@@ -1,0 +1,31 @@
+#streamlit-webtrc
+
+from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
+import streamlit as st
+import cv2
+
+# webrtc_streamer(key="example")
+
+
+class VideoTransformer(VideoTransformerBase):
+
+    def __init__(self):
+        self.threshold1 = 100
+        self.threshold2 = 200
+
+    def transform(self, frame):
+
+        img = frame.to_ndarray(format="bgr24")
+        #img = cv2.cvtColor(cv2.Canny(img, self.threshold1, self.threshold2 ), cv2.COLOR_GRAY2BGR)
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.Sobel(gray, cv2.CV_8U, 1, 0, 3)
+
+        #laplacian = cv2.Laplacian(gray, cv2.CV_8U)
+        #print("img", img.shape)
+        return img
+
+webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
+
+# ctx.video_transformer.threshold1 = st.slider("threshold1", 0, 1000, 100)
+# ctx.video_transformer.threshold2 = st.slider("threshold2", 0, 1000, 200)
