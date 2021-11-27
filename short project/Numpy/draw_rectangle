@@ -1,0 +1,17 @@
+import numpy as np
+import cv2
+
+# color 설정
+blue_color = (255, 0, 0)
+green_color = (0, 255, 0)
+red_color = (0, 0, 255)
+white_color = (255, 255, 255)
+
+img = np.zeros((384, 384, 3), np.uint8)
+img = cv2.rectangle(img, (10, 10), (100, 100), blue_color, -1)
+img = cv2.rectangle(img, (110, 110), (200, 200), green_color, -1)
+img = cv2.rectangle(img, (210, 210), (350, 350), red_color, -1)
+
+cv2.imshow('rectangle',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
