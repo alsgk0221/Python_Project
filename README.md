@@ -25,6 +25,7 @@ Short-term Projects
 
 Application
 ----------
+> - Streamlit
 > - BeautifulSoup
 > - Client & Server
 > - Deep learning
@@ -37,6 +38,5 @@ Application
 
 etc
 ---
-> - Streamlit
 > - basic question
 > - Baekjoon Algorithm
