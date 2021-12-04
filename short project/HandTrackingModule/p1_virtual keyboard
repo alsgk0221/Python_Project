@@ -1,0 +1,77 @@
+import cv2
+import time
+from cvzone.HandTrackingModule import HandDetector
+
+class Button():
+
+    def __init__(self, pos, text, size=[50, 50]):
+
+        self.pos = pos
+        self.text = text
+        self.size = size
+
+def drawAll(img, button_list):
+
+    for button in button_list:
+        x, y = button.pos
+        w, h = button.size
+
+        cv2.rectangle(img, (x, y), (x + w, y + h), red, cv2.FILLED)
+        cv2.putText(img, button.text, (x + 15, y + 40), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 3)
+
+    return img
+
+cap = cv2.VideoCapture(0)
+cap.set(3, 3000)
+cap.set(4, 3000)
+detector = HandDetector(detectionCon=0.8)
+red = (200, 50, 200)
+yellow = (50, 200, 200)
+blue = (200, 200, 50)
+input_box = ""
+
+keys = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L", ";"],
+        ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"]]
+button_list = []
+
+for i in range(len(keys)):
+    inner_key = keys[i]
+    for num, key in enumerate(inner_key):
+        button_list.append(Button([60 + 100*num, 60 + 100*i], key))
+
+while True:
+    success, img = cap.read()
+    img = cv2.flip(img, 1)
+    hands, img = detector.findHands(img)
+    img = drawAll(img, button_list)
+    cv2.rectangle(img, (60, 400), (1200, 490), blue, cv2.FILLED)
+
+    if hands:
+        hand1 = hands[0]
+        lmList1 = hand1["lmList"]
+        bbox1 = hand1["bbox"]
+        centerPoint = hand1['center']
+        handType1 = hand1["type"]
+        fingers1 = detector.fingersUp(hand1)
+        l, _, _ = detector.findDistance(lmList1[8], lmList1[12], img)
+
+        for button in button_list:
+            x, y = button.pos
+            w, h = button.size
+
+            if x < lmList1[8][0] < x + w and y < lmList1[8][1] < y + h:
+                if l < 50:
+                    cv2.rectangle(img, (x, y), (x + w, y + h), yellow, cv2.FILLED)
+                    cv2.putText(img, button.text, (x + 15, y + 40), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 3)
+                    input_box += button.text
+                    time.sleep(0.2)
+
+    cv2.putText(img, input_box, (60, 460), cv2.FONT_HERSHEY_PLAIN, 4, (255, 255, 255), 5)
+
+    cv2.imshow("Image", img)
+    cv2.waitKey(1)
+
+
+cap.release()
+cv2.destroyAllWindows()
