@@ -12,6 +12,8 @@ Long-term Projects
 >   * 아이의 소리를 인식해 청각장애를 가진 부모를 돕는 프로그램
 > - Cat or Dog
 >   * 사진을 인식해 개와 고양이를 구분하는 프로그램
+> - Catch moles
+>   * 카메라 화면 속 손바닥으로 두더지를 잡는 게임
 
 Short-term Projects
 -------------
