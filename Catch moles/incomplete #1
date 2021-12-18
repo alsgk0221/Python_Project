@@ -1,0 +1,39 @@
+# main
+
+import cv2
+import time
+import random
+from cvzone.HandTrackingModule import HandDetector
+cap = cv2.VideoCapture(0)
+cap.set(3, 3000)
+cap.set(4, 3000)
+count = 0  # 임의의 시간
+mole_xy = [[200, 150], [600, 150], [1000, 150], [350, 450], [850, 450]]
+
+
+def move_mole(mole_xy, count):
+
+    index = random.randrange(0, 4)
+    if count > 10:
+        while count < 20:
+            cv2.circle(frame, (mole_xy[index][0], mole_xy[index][1]), 90, (0, 100, 200), -1)
+
+
+while True:
+
+    ret, frame = cap.read()
+    # cv2.circle(frame, (200, 150), 90, (0, 100, 200), -1)
+    frame = cv2.ellipse(frame, (200, 200), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (600, 200), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (1000, 200), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (350, 500), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (850, 500), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    move_mole(mole_xy, count)
+
+    count += 1
+    cv2.imshow("Frame", frame)
+    cv2.waitKey(1)
+
+
+cap.release()
+cv2.destroyAllWindows()
