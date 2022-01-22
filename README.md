@@ -21,24 +21,25 @@ Short-term Projects
 > - Blackjack
 > - Sort Grade
 > - Dodge Game
+> - Avoid Bullits
 > - Check the Mask
 > - Write Read Like Hate 
 > - Which Word used the most?
 
 Application
 ----------
+> - Numpy
+> - YOLO v3
 > - Streamlit
-> - BeautifulSoup
-> - Client & Server
-> - Deep learning
 > - Torchvision
 > - COCO Dataset
 > - Colaboratory
-> - YOLO v3
-> - Numpy
+> - BeautifulSoup
+> - Deep learning
+> - Client & Server
 > - HandTrackingModule
 
 etc
 ---
-> - basic question
+> - basic questions
 > - Baekjoon Algorithm
