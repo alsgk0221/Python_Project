@@ -14,6 +14,8 @@ Long-term Projects
 >   * 사진을 인식해 개와 고양이를 구분하는 프로그램
 > - Catch moles
 >   * 카메라 화면 속 손바닥으로 두더지를 잡는 게임
+> - Avoid the Bullets
+>   * 사방에서 날아오는 장애물들을 피하는 게임
 
 Short-term Projects
 -------------
@@ -21,7 +23,6 @@ Short-term Projects
 > - Blackjack
 > - Sort Grade
 > - Dodge Game
-> - Avoid Bullits
 > - Check the Mask
 > - Write Read Like Hate 
 > - Which Word used the most?
