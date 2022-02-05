@@ -1,0 +1,55 @@
+import cv2
+import time
+import random
+import numpy as np
+from cvzone.HandTrackingModule import HandDetector
+
+cap = cv2.VideoCapture(0)
+cap.set(3, 3000)
+cap.set(4, 3000)
+detector = HandDetector(detectionCon=0.8)
+score = 0
+count = 0
+mole_xy = [[200, 150], [600, 150], [1000, 150], [350, 450], [850, 450]]
+
+
+def move_mole(mole_xy, count):
+
+    index = random.randrange(0, 5)
+    if count > 300:
+        cv2.circle(frame, (mole_xy[index][0], mole_xy[index][1]), 90, (0, 100, 200), -1)
+        count = 0
+        cv2.waitKey(2)
+
+    return index
+
+while True:
+
+    ret, frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    hands, frame = detector.findHands(frame)
+    frame = cv2.ellipse(frame, (200, 200), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (600, 200), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (1000, 200), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (350, 500), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    frame = cv2.ellipse(frame, (850, 500), (100, 20), 0, 0, 360, (40, 40, 40), -1)
+    index = move_mole(mole_xy, count)
+    count += 1
+    cv2.imshow("Frame", frame)
+    cv2.waitKey(1)
+
+    if hands:
+        hand1 = hands[0]
+        lmList1 = hand1["lmList"]
+
+        if mole_xy[index][0] - 100 < lmList1[8][0] < mole_xy[index][0] + 100 and mole_xy[index][1] - 100 < lmList1[8][1] < mole_xy[index][0]+ 100:
+            score += 1
+            cv2.waitKey(5)
+
+    if score == 1:
+        white_color = (255, 255, 255)
+        img = np.zeros((384, 384, 3), np.uint8)
+        cv2.putText(img, 'PYTHON', (300, 300), cv2.FONT_HERSHEY_SIMPLEX, 1, white_color, 2, cv2.LINE_AA)
+        time.sleep(3)
+        cap.release()
+        cv2.destroyAllWindows()
