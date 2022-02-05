@@ -14,6 +14,8 @@ Long-term Projects
 >   * 사진을 인식해 개와 고양이를 구분하는 프로그램
 > - Avoid the Bullets
 >   * 사방에서 날아오는 장애물들을 피하는 게임
+> - Catch moles(incomplete)
+>   * 카메라 화면 속애서 손으로 두더지를 잡는 게임
 
 Short-term Projects
 -------------
