@@ -1,0 +1,19 @@
+import pygame
+
+
+def move(li):
+
+    from Main import moveSpeed, height, width
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and li[0] > 0:
+        li[0] -= moveSpeed
+
+    if keys[pygame.K_RIGHT] and li[0] < 1280 - height :
+        li[0] += moveSpeed
+
+    if keys[pygame.K_UP] and li[1] > 0:
+        li[1] -= moveSpeed
+
+    if keys[pygame.K_DOWN] and li[1] < 720 - width:
+        li[1] += moveSpeed
+    return li[0], li[1]
