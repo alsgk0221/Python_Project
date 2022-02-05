@@ -1,0 +1,173 @@
+import pygame
+import random
+
+pygame.init()
+
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+YELLOW = (255, 255, 0)
+BLUE = (0, 0, 255)
+
+size = (1280, 720)
+screen = pygame.display.set_mode(size)
+
+pygame.display.set_caption("Avoid the Bullets")
+
+clock = pygame.time.Clock()
+
+player_x = 640
+player_y = 360
+width = 20
+height = 20
+count = 0
+moveSpeed = 10
+back_sound = pygame.mixer.Sound("MP_Hennessy Drum.mp3")
+back_sound.play(-1)
+
+onGame = True
+done = False
+Ready = True
+shield = True
+skill = 0
+shield_cnt = 0
+
+def move(li):
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and li[0] > 0:
+        li[0] -= moveSpeed
+
+    if keys[pygame.K_RIGHT] and li[0] < 1280 - height :
+        li[0] += moveSpeed
+
+    if keys[pygame.K_UP] and li[1] > 0:
+        li[1] -= moveSpeed
+
+    if keys[pygame.K_DOWN] and li[1] < 720 - width:
+        li[1] += moveSpeed
+    return li[0], li[1]
+
+def text(size, lines, color, text_x, text_y):
+
+    myFont = pygame.font.SysFont("arial", size, True, False)
+    text_Title = myFont.render(lines, True, color)
+    text_Rect = text_Title.get_rect()
+    text_Rect.centerx = round(text_x)
+    text_Rect.y = text_y
+    screen.blit(text_Title, text_Rect)
+
+class Bullets:
+    def __init__(self, x, y):
+        self.pos_x = x
+        self.pos_y = y
+        self.x_speed = random.uniform(1, 5)
+        self.y_speed = random.uniform(1, 5)
+        self.x_speed += 0.5
+        self.y_speed += 0.5
+
+    def draw(self):
+        self.rect = pygame.draw.rect(screen, GREEN, (self.pos_x, self.pos_y, width, height))
+
+    def move(self):
+        self.pos_x += self.x_speed
+        self.pos_y += self.y_speed
+
+    def wall_check(self):
+        if self.pos_x + self.x_speed > 1280 - width or self.pos_x + self.x_speed < height:
+            self.x_speed = -self.x_speed
+        if self.pos_y + self.y_speed > 720 - width or self.pos_y + self.y_speed < height:
+            self.y_speed = -self.y_speed
+
+    def collision_check(self):
+        if self.rect.top < player.bottom and player.top < self.rect.bottom and \
+                player.left < self.rect.right and self.rect.left < player.right:
+            if shield==False:
+                return True
+        else:
+            return False
+
+    def check_all(self):
+        self.draw()
+        self.move()
+        self.wall_check()
+        res = self.collision_check()
+        if res == True:
+            return True
+        else:
+            return False
+
+enemy_1 = Bullets(random.randrange(10, 1270), random.randrange(10, 710))
+enemy_2 = Bullets(random.randrange(10, 1270), random.randrange(10, 710))
+enemy_3 = Bullets(random.randrange(10, 1270), random.randrange(10, 710))
+enemy_4 = Bullets(random.randrange(10, 1270), random.randrange(10, 710))
+enemy_5 = Bullets(random.randrange(10, 1270), random.randrange(10, 710))
+enemy_6 = Bullets(random.randrange(10, 1270), random.randrange(10, 710))
+
+while not done:
+
+    count += 1
+    shield_cnt += 1
+    clock.tick(60)
+    start_ticks = pygame.time.get_ticks()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                skill = int(skill)
+                if skill > 0:
+                    skill -= 1
+                    shield = True
+                    shield_cnt = 0
+
+    currLocation = [player_x, player_y]
+    player_x, player_y = move(currLocation)
+
+    screen.fill(BLACK)
+    if shield == True:
+        player = pygame.draw.rect(screen, YELLOW, (player_x, player_y, width, height))
+        text(30, "Shield On", YELLOW, 640, 10)
+    else:
+        player = pygame.draw.rect(screen, RED, (player_x, player_y, width, height))
+        if skill > 0:
+            text(25, "Press Space Bar to use Shield.", YELLOW, 640, 10)
+
+    b1 = enemy_1.check_all()
+    b2 = enemy_2.check_all()
+    b3 = enemy_3.check_all()
+    b4 = enemy_4.check_all()
+    b5 = enemy_5.check_all()
+    b6 = enemy_6.check_all()
+
+    if b1==True or b2==True or b3==True or b4==True or b5==True or b6== True or \
+            player_x == 0 or player_x == 1260 or player_y == 0 or player_y == 700:
+        screen.fill(BLACK)
+        text(60, "GAME OVER", WHITE, 630, 300)
+
+        done = True
+
+    time_text = str(start_ticks // 1000)
+    text(30, "Score : " + time_text, WHITE, 1100, 10)
+
+    skill = str(skill)
+    text(30, "Shield : " + skill, WHITE, 1100, 35)
+
+    time_text = int(time_text)
+    skill = int(skill)
+    if time_text % 15 == 0:
+        if count > 100:
+            skill += 1
+            count = 0
+
+    if shield_cnt > 200:
+        shield = False
+
+    if done:
+        pygame.display.flip()
+        pygame.time.delay(2 * 1000)
+
+    pygame.display.flip()
+
+pygame.quit()
