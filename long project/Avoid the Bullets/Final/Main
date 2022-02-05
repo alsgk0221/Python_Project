@@ -9,7 +9,6 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
-BLUE = (0, 0, 255)
 
 size = (1280, 720)
 screen = pygame.display.set_mode(size)
@@ -64,7 +63,7 @@ while not done:
     player_x, player_y = move(currLocation)
 
     screen.fill(BLACK)
-    if shield == True:
+    if shield:
         from Texting import text
         player = pygame.draw.rect(screen, YELLOW, (player_x, player_y, width, height))
         text(30, "Shield On", YELLOW, 640, 10)
@@ -80,7 +79,7 @@ while not done:
     b5 = enemy_5.check_all()
     b6 = enemy_6.check_all()
 
-    if b1==True or b2==True or b3==True or b4==True or b5==True or b6== True or \
+    if b1 or b2 or b3 or b4 or b5 or b6 or \
             player_x == 0 or player_x == 1260 or player_y == 0 or player_y == 700:
         screen.fill(BLACK)
         text(60, "GAME OVER", WHITE, 630, 300)
@@ -108,5 +107,4 @@ while not done:
         pygame.time.delay(2 * 1000)
 
     pygame.display.flip()
-
 pygame.quit()
