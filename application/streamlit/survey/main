@@ -1,0 +1,42 @@
+import streamlit as st
+from glob import glob
+
+st.subheader("Survey")
+info = []
+
+name = st.text_input("- Name")
+info.append("name : " + name)
+
+selected_item = st.radio("- Gender", ("woman", "man"))
+checkbox_bth = st.checkbox("Okay", value=False)
+
+if checkbox_bth:
+
+    if selected_item == "woman":
+        info.append("gender : " + "woman")
+    elif selected_item == "man":
+        info.append("gender : " + "man")
+
+bday = st.date_input("- Birth day")
+info.append("birth-day : " + str(bday))
+
+age = st.slider("- Age", 10, 100, 1)
+info.append("age : " + str(age))
+
+job = st.text_input("- Job")
+info.append("job : " + job)
+
+nationality = st.selectbox('- Nationality', ('Korea', 'the United States', 'China', 'Japan', 'etc'))
+if nationality == 'etc':
+    nationality = st.text_input("(write)")
+info.append("nationality : " + nationality)
+
+
+if st.button("Finish"):
+    all_files = glob("./*.txt")
+    print(all_files)
+    f = open("{}.txt".format(str(len(all_files) + 1)), 'w')
+    st.write("Thanks")
+    for i in range(len(info)):
+        f.write(info[i] + '\n')
+    f.close()
