@@ -1,0 +1,43 @@
+from glob import glob
+
+files = glob("*.txt")
+gender = [0, 0]
+total_age = 0
+nationality = [0, 0, 0, 0, 0]
+
+
+for file in files:
+
+    f = open(file, 'r')
+
+    lines = f.readlines()
+
+    temp = lines[1].split(" : ")
+    if temp[1] == "woman\n":
+        gender[0] += 1
+    elif temp[1] == "man\n":
+        gender[1] += 1
+
+    temp = lines[3].split(" : ")
+    total_age += int(temp[1])
+
+    temp = lines[5].split(" : ")
+    if temp[1] == "Korea":
+        nationality[0] += 1
+    elif temp[1] == "the United States":
+        nationality[1] += 1
+    elif temp[1] == "China":
+        nationality[2] += 1
+    elif temp[1] == "Japan":
+        nationality[3] += 1
+    elif temp[1] == "etx":
+        nationality[4] += 1
+
+total_people = gender[0] + gender[1]
+print("man : " + str(gender[1] / total_people * 100) + '%')
+print("woman : " + str(gender[0] / total_people * 100) + '%')
+print("    ")
+print("average age: " + str(total_age / total_people))
+
+
+
